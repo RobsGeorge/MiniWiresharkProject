@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="networksproject.vipersteam.MainPageController">
+   <children>
+       <Button fx:id="loadSelectedButton" layoutX="376.0" layoutY="58.0" mnemonicParsing="false" onAction="#LoadSelectedButtonHandler" prefHeight="37.0" prefWidth="109.0" style="-fx-background-color: #023ff7; -fx-border-radius: 3;" text="Load Selected" visible="false" />
+      <Button fx:id="saveButton" layoutX="148.0" layoutY="20.0" mnemonicParsing="false" onAction="#savePackets" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: #fcf801; -fx-border-color: #fc9901; -fx-border-radius: 3;" text="Save" visible="false" />
+      <Button fx:id="newCaptureButton" layoutX="199.0" layoutY="25.0" mnemonicParsing="false" onAction="#newCaptureHandler" prefHeight="37.0" prefWidth="109.0" style="-fx-background-color: #47e524; -fx-border-radius: 3;" text="New Capture">
+      
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <TableView id="mainTableView" layoutY="139.0" prefHeight="350.0" prefWidth="600.0" tableMenuButtonVisible="true">
+        <columns>
+          <TableColumn   id="column1" prefWidth="32.00000059604645" text="No." />
+          <TableColumn   id="column2" prefWidth="56.666690826416016" text="Time" />
+            <TableColumn id="column3" prefWidth="109.33330535888672" text="Source" />
+            <TableColumn id="column4" prefWidth="104.00001525878906" text="Destination" />
+            <TableColumn id="column5" prefWidth="75.0" text="Protocol" />
+            <TableColumn id="column6" prefWidth="75.0" text="Length" />
+            <TableColumn id="column7" prefWidth="145.99996948242188" text="Info" />
+        </columns>
+      </TableView>
+      <TextField layoutX="156.0" layoutY="101.0" prefHeight="25.0" prefWidth="395.0" promptText="Add a display filter" style="-fx-border-color: #8df508; -fx-background-color: #d1d5df;" />
+      <Label id="testLabel" layoutX="62.0" layoutY="100.0" text="Filter Packets" textFill="#f06204">
+         <font>
+            <Font name="Agency FB" size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="testLabel" layoutX="322.0" layoutY="10.0" prefHeight="54.0" prefWidth="101.0" text="" wrapText="true" />
+      <TextField fx:id="numberOfPacketsTextBox" layoutX="253.0" layoutY="66.0" prefHeight="25.0" prefWidth="116.0" visible="false" />
+      <Label fx:id="lab1" layoutX="40.0" layoutY="64.0" prefHeight="37.0" prefWidth="212.0" text="No.  of Packets to be captured " visible="false" wrapText="true" />
+      <Button fx:id="loadButton" layoutX="65.0" layoutY="25.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#loadFile" prefHeight="37.0" prefWidth="78.0" style="-fx-background-color: #02f7d3; -fx-border-color: #fc9901; -fx-border-radius: 3;" text="Load" />
+      <Button fx:id="goBackButton" layoutX="516.0" layoutY="15.0" mnemonicParsing="false" onAction="#goBackButtonHandler" text="Go Back" />
+      <Button fx:id="discardButton" layoutX="426.0" layoutY="21.0" mnemonicParsing="false" onAction="#discardButtonHandler" prefHeight="44.0" prefWidth="67.0" style="-fx-background-color: #f702ce; -fx-border-color: #fc9901; -fx-border-radius: 3;" text="Discard" textFill="WHITE" visible="false" />
+      
+   </children>
+</AnchorPane>

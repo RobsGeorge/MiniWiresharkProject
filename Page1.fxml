@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="AnchorPane" prefHeight="458.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="networksproject.vipersteam.MainPageController">
+   <children>
+      <Label layoutX="65.0" layoutY="103.0" text="Network Interfaces :" textFill="#ea770b">
+         <font>
+            <Font name="Agency FB" size="23.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="networkInterfacesComboBox" layoutX="232.0" layoutY="105.0" onAction="#GetSelectedFromComboBox" prefHeight="28.0" prefWidth="334.0" promptText="See Available Network Interfaces" style="-fx-background-color: ffff;" visible="false" />
+      <Button fx:id="startCapturingButton" alignment="CENTER" layoutX="165.0" layoutY="266.0" mnemonicParsing="false" onAction="#gotoStartCapturing" prefHeight="51.0" prefWidth="239.0" style="-fx-background-color: linear-gradient(#f0ff35, #a9ff00),        radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%); -fx-background-radius: 6,5; -fx-background-insets: 0,1; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );" text="Start Capturing" visible="false">
+         <font>
+            <Font name="Berlin Sans FB" size="21.0" />
+         </font>
+      </Button>
+      <Button fx:id="showAvailableNICButton" layoutX="13.0" layoutY="21.0" mnemonicParsing="false" onAction="#showAvailableNIC" prefHeight="28.0" prefWidth="130.0" text="Show Available NICs" />
+      <Label fx:id="NetworkInterfaceErrorLabel" layoutX="165.0" layoutY="16.0" prefHeight="39.0" prefWidth="317.0" text="" textFill="#f80505">
+         <font>
+            <Font name="Bauhaus 93" size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="GoBackToMainPage" layoutX="243.0" layoutY="65.0" mnemonicParsing="false" onAction="#GoBackToMainPageHandler" prefHeight="28.0" prefWidth="121.0" text="Back To Main Page" visible="false" />
+   </children>
+</AnchorPane>
