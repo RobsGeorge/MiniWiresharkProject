@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="networksproject.vipersteam.MainPageController">
+<AnchorPane id="AnchorPane" prefHeight="479.0" prefWidth="632.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="networksproject.vipersteam.MainPageController">
    <children>
        <Button fx:id="loadSelectedButton" layoutX="376.0" layoutY="58.0" mnemonicParsing="false" onAction="#LoadSelectedButtonHandler" prefHeight="37.0" prefWidth="109.0" style="-fx-background-color: #023ff7; -fx-border-radius: 3;" text="Load Selected" visible="false" />
       <Button fx:id="saveButton" layoutX="148.0" layoutY="20.0" mnemonicParsing="false" onAction="#savePackets" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: #fcf801; -fx-border-color: #fc9901; -fx-border-radius: 3;" text="Save" visible="false" />
@@ -18,17 +18,17 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <TableView id="mainTableView" layoutY="139.0" prefHeight="350.0" prefWidth="600.0" tableMenuButtonVisible="true">
-        <columns>
-          <TableColumn   id="column1" prefWidth="32.00000059604645" text="No." />
-          <TableColumn   id="column2" prefWidth="56.666690826416016" text="Time" />
-            <TableColumn id="column3" prefWidth="109.33330535888672" text="Source" />
-            <TableColumn id="column4" prefWidth="104.00001525878906" text="Destination" />
-            <TableColumn id="column5" prefWidth="75.0" text="Protocol" />
-            <TableColumn id="column6" prefWidth="75.0" text="Length" />
-            <TableColumn id="column7" prefWidth="145.99996948242188" text="Info" />
-        </columns>
-      </TableView>
+      <TableView fx:id="itemTbl" layoutX="8.0" layoutY="137.0" prefHeight="334.0" prefWidth="616.0">
+      <columns>
+        <TableColumn fx:id="itemDateCol" prefWidth="72.99999618530273" text="Date" />
+        <TableColumn fx:id="itemSourceCol" prefWidth="89.00000762939453" text="Source" />
+        <TableColumn fx:id="itemDestCol" prefWidth="85.0" text="Destination" />
+        <TableColumn fx:id="itemProtocolCol" prefWidth="63.0" text="Protocol" />
+        <TableColumn fx:id="itemLengthCol" prefWidth="57.0" text="Length" />
+        <TableColumn fx:id="itemHeaderLengthCol" prefWidth="56.0" text="Header Length" />
+        <TableColumn fx:id="itemInfoCol" prefWidth="192.0" text="Info" />
+      </columns>
+    </TableView>
       <TextField layoutX="156.0" layoutY="101.0" prefHeight="25.0" prefWidth="395.0" promptText="Add a display filter" style="-fx-border-color: #8df508; -fx-background-color: #d1d5df;" />
       <Label id="testLabel" layoutX="62.0" layoutY="100.0" text="Filter Packets" textFill="#f06204">
          <font>
@@ -41,6 +41,7 @@
       <Button fx:id="loadButton" layoutX="65.0" layoutY="25.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#loadFile" prefHeight="37.0" prefWidth="78.0" style="-fx-background-color: #02f7d3; -fx-border-color: #fc9901; -fx-border-radius: 3;" text="Load" />
       <Button fx:id="goBackButton" layoutX="516.0" layoutY="15.0" mnemonicParsing="false" onAction="#goBackButtonHandler" text="Go Back" />
       <Button fx:id="discardButton" layoutX="426.0" layoutY="21.0" mnemonicParsing="false" onAction="#discardButtonHandler" prefHeight="44.0" prefWidth="67.0" style="-fx-background-color: #f702ce; -fx-border-color: #fc9901; -fx-border-radius: 3;" text="Discard" textFill="WHITE" visible="false" />
+      <Button fx:id="testTableButton" layoutX="516.0" layoutY="56.0" mnemonicParsing="false" onAction="#testTableButtonHandler" text="TEST" />
       
    </children>
 </AnchorPane>

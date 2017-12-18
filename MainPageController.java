@@ -12,8 +12,12 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,6 +32,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.jnetpcap.JBufferHandler;
 import org.jnetpcap.Pcap;
@@ -44,7 +49,77 @@ import org.jnetpcap.protocol.tcpip.Tcp;
  */
 public class MainPageController implements Initializable {
 
+    public class Item {
+        public SimpleLongProperty date = new SimpleLongProperty();
+        public SimpleStringProperty source = new SimpleStringProperty();
+        public SimpleStringProperty destination = new SimpleStringProperty();
+        public SimpleStringProperty protocol = new SimpleStringProperty();
+        public SimpleIntegerProperty length = new SimpleIntegerProperty();
+        public SimpleIntegerProperty headerLength = new SimpleIntegerProperty();
+        public SimpleStringProperty info = new SimpleStringProperty();
+        
+        public void setDate(SimpleLongProperty d)
+        {
+            this.date = d;
+        }
+        public void setSource(SimpleStringProperty d)
+        {
+            this.source = d;
+        }
+        public void setDestination(SimpleStringProperty d)
+        {
+            this.destination = d;
+        }
+        public void setProtocol(SimpleStringProperty d)
+        {
+            this.protocol = d;
+        }
+        public void setLength(SimpleIntegerProperty d)
+        {
+            this.length = d;
+        }
+        public void setHeaderLength(SimpleIntegerProperty d)
+        {
+            this.headerLength = d;
+        }
+        public void setInfo(SimpleStringProperty d)
+        {
+            this.info = d;
+        }
+        
+        public Long getDate() {
+            return date.get();
+        }
 
+        public String getSource() {
+            return source.get();
+        }
+
+        public String getDestination() {
+            return destination.get();
+        }
+
+        public Integer getLength() {
+            return length.get();
+        }
+        
+        public Integer getHeaderLength() {
+            return headerLength.get();
+        }
+        
+        public String getProtocol()
+        {
+            return protocol.get();
+        }
+        
+        public String getInfo()
+        {
+            return info.get();
+        }
+    }
+    
+    
+    
 Stage stage; 
 Parent root;
 
@@ -61,11 +136,8 @@ public static String loadTextBoxOutput;
 public static String ofile;
 private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-private final TableView<PC> table = new TableView<>();
-private final ObservableList<PC> data =
-            FXCollections.observableArrayList(new PC(1,"192.168.1.1","255.255.255.255",1560,20,"HTTP","NOOO"));
-
-
+    
+    
 @FXML
 Button gotoWiresharkButton;
 @FXML
@@ -103,29 +175,51 @@ Button loadSelectedButton;
 @FXML
 Button goBackButton;
 @FXML
-TableView<PC> mainTableView;
-@FXML
-TableColumn column1;
-@FXML
-TableColumn column2;
-@FXML
-TableColumn column3;
-@FXML
-TableColumn column4;
-@FXML
-TableColumn column5;
-@FXML
-TableColumn column6;
-@FXML
-TableColumn column7;
+Button testTableButton;
 
+    // The table and columns
+@FXML
+TableView<Item> itemTbl;
 
-    public MainPageController() throws IOException { 
+    @FXML
+    TableColumn itemDateCol;
+    @FXML
+    TableColumn itemSourceCol;
+    @FXML
+    TableColumn itemDestCol;
+    @FXML
+    TableColumn itemProtocolCol;
+    @FXML
+    TableColumn itemLengthCol;
+    @FXML
+    TableColumn itemHeaderLengthCol;
+    @FXML
+    TableColumn itemInfoCol;
+    
+            
+
+    // The table's data
+    ObservableList<Item> data;
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // Set up the table data
         MainPageController.snaplen = 64 * 1024;
         MainPageController.flags =  Pcap.MODE_PROMISCUOUS;
         MainPageController.timeout =  10 * 1000;
         ofile = "";
         
+        
+        itemDateCol.setCellValueFactory(new PropertyValueFactory<Item,Long>("date"));
+        itemSourceCol.setCellValueFactory(new PropertyValueFactory<Item,String>("source"));
+        itemDestCol.setCellValueFactory(new PropertyValueFactory<Item,String>("destination"));
+        itemProtocolCol.setCellValueFactory(new PropertyValueFactory<Item,String>("protocol"));
+        itemLengthCol.setCellValueFactory(new PropertyValueFactory<Item,Integer>("length"));
+        itemHeaderLengthCol.setCellValueFactory(new PropertyValueFactory<Item,Integer>("headerLength"));
+        itemInfoCol.setCellValueFactory(new PropertyValueFactory<Item,String>("info"));
+
+        data = FXCollections.observableArrayList();
+        itemTbl.setItems(data);
     }
 
 
@@ -143,12 +237,13 @@ return builder.toString();
 }
     
     
+    
     public void gotoWiresharkHandleButton(ActionEvent event) throws IOException {     
       stage=(Stage) gotoWiresharkButton.getScene().getWindow();
       root = FXMLLoader.load(getClass().getResource("Page1.fxml"));
       Scene scene = new Scene(root);
       stage.setScene(scene);
-      stage.show(); 
+      stage.show();
     }
     
     public void gotoStartCapturing(ActionEvent event) throws IOException {
@@ -294,6 +389,7 @@ return builder.toString();
                 discardButton.setVisible(true);
                 newCaptureButton.setText("New Capture");
                 newCaptureButton.setVisible(false);
+                
                        
     }
     
@@ -363,6 +459,7 @@ return builder.toString();
                 {   Tcp tcp = new Tcp();
                     Ip4 ip = new Ip4();
                     
+                @Override
 		public void nextPacket(PcapPacket packet, String user) 
                     {
                         byte[] sIP = new byte[4];
@@ -406,6 +503,20 @@ return builder.toString();
         }
     }
     
+    
+   
+    public  void testTableButtonHandler (ActionEvent event) throws IOException {     
+        //mainTableView.getItems().addAll(pData);
+        Item item = new Item();
+        item.setDate(new SimpleLongProperty(152365231));
+        item.setSource(new SimpleStringProperty("Robs"));
+        item.setDestination(new SimpleStringProperty("hii"));
+        item.setProtocol(new SimpleStringProperty("http"));
+        item.setLength(new SimpleIntegerProperty(1503));
+        item.setHeaderLength(new SimpleIntegerProperty(20));
+        item.setInfo(new SimpleStringProperty("sdsdsdsd"));
+        data.add(item);
+    }
    
    
     
@@ -417,9 +528,6 @@ return builder.toString();
       stage.show();
     }
     
-       @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
-    } 
+  
     
 }
