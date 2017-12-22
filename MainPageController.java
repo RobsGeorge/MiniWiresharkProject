@@ -299,8 +299,8 @@ public static String randomAlphaNumeric(int count) {
         startCapturingButton.setVisible(true);
     }
     
-    public void newCaptureHandler(ActionEvent event) throws IOException{           
-        
+    public void newCaptureHandler(ActionEvent event) throws IOException{      
+	    
         itemDateCol.setCellValueFactory(new PropertyValueFactory<Item,Long>("date"));
         itemSourceCol.setCellValueFactory(new PropertyValueFactory<Item,String>("source"));
         itemDestCol.setCellValueFactory(new PropertyValueFactory<Item,String>("destination"));
@@ -446,6 +446,16 @@ public static String randomAlphaNumeric(int count) {
     
     
     public void loadFile (ActionEvent event) throws IOException {
+	itemDateCol.setCellValueFactory(new PropertyValueFactory<Item,Long>("date"));
+        itemSourceCol.setCellValueFactory(new PropertyValueFactory<Item,String>("source"));
+        itemDestCol.setCellValueFactory(new PropertyValueFactory<Item,String>("destination"));
+        itemProtocolCol.setCellValueFactory(new PropertyValueFactory<Item,String>("protocol"));
+        itemLengthCol.setCellValueFactory(new PropertyValueFactory<Item,Integer>("length"));
+        itemHeaderLengthCol.setCellValueFactory(new PropertyValueFactory<Item,Integer>("headerLength"));
+        itemInfoCol.setCellValueFactory(new PropertyValueFactory<Item,String>("info"));
+        data = FXCollections.observableArrayList();
+        itemTbl.setItems(data);
+	    
         saveButton.setVisible(false);
         loadButton.setVisible(false);
         newCaptureButton.setVisible(false);
